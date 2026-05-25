@@ -12,6 +12,7 @@ export const Navbar = () => {
   const [notifOpen, setNotifOpen] = useState(false)
 
   const unreadCount = notifications.filter((n) => !n.read).length
+  const roleName = user?.role?.name || user?.role || 'guest'
 
   return (
     <header className="sticky top-0 z-40 w-full glass-panel-light dark:glass-panel-dark border-b border-stone-200/60 dark:border-zinc-800/60 px-6 py-3 flex items-center justify-between">
@@ -34,7 +35,7 @@ export const Navbar = () => {
           <Shield className="w-3.5 h-3.5 text-gold-500" />
           <span className="text-stone-500 dark:text-gold-200/70 mr-1 hidden md:inline">Role:</span>
           <select 
-            value={user?.role || 'guest'}
+            value={roleName}
             onChange={(e) => setRole(e.target.value)}
             className="bg-transparent focus:outline-none text-gold-600 dark:text-gold-400 font-bold uppercase cursor-pointer"
           >
@@ -78,7 +79,7 @@ export const Navbar = () => {
           </div>
           <div className="hidden lg:block text-left">
             <div className="text-xs font-bold text-stone-800 dark:text-stone-100">{user?.name}</div>
-            <div className="text-[10px] text-stone-400 dark:text-zinc-500 font-semibold tracking-wider uppercase">{user?.role?.replace('_', ' ')}</div>
+            <div className="text-[10px] text-stone-400 dark:text-zinc-500 font-semibold tracking-wider uppercase">{roleName.replace('_', ' ')}</div>
           </div>
         </div>
 

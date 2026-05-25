@@ -53,7 +53,7 @@ export const Sidebar = () => {
   ]
 
   // Filter items based on current simulation role
-  const filteredItems = menuItems.filter(item => item.allowedRoles.includes(user?.role))
+  const filteredItems = menuItems.filter(item => item.allowedRoles.includes(user?.role?.name || user?.role))
 
   return (
     <aside 

@@ -58,7 +58,7 @@ export const DashboardPage = () => {
   ]
 
   const handleRestrictedAction = (requiredRole, actionName) => {
-    const roleName = user?.roles?.[0]?.name || 'guest'
+    const roleName = user?.role?.name || 'guest'
     if (roleName === 'guest' && requiredRole !== 'guest') {
       addToast(`Action Denied: Role "${roleName}" does not have permissions to ${actionName}.`, 'error')
     } else {
@@ -66,7 +66,7 @@ export const DashboardPage = () => {
     }
   }
 
-  const roleName = user?.roles?.[0]?.name || 'guest'
+  const roleName = user?.role?.name || 'guest'
 
   return (
     <div className="space-y-8 text-left">
@@ -167,29 +167,29 @@ export const DashboardPage = () => {
         {/* Right Column: Roles Capabilities Panel */}
         <div className="space-y-6">
           <GsapReveal delay={0.4} y={40}>
-            <h3 className="text-lg font-serif font-bold text-stone-800 dark:text-gold-200">Role Status: {user.role.replace('_', ' ').toUpperCase()}</h3>
+            <h3 className="text-lg font-serif font-bold text-stone-800 dark:text-gold-200">Role Status: {roleName.replace('_', ' ').toUpperCase()}</h3>
             <GlassCard borderGold className="space-y-4">
               <div className="text-xs text-stone-500 dark:text-zinc-400 leading-relaxed">
-                As a <strong className="text-gold-500 capitalize">{user.role}</strong>, you have access to the following backend schemas and actions:
+                As a <strong className="text-gold-500 capitalize">{roleName}</strong>, you have access to the following backend schemas and actions:
               </div>
 
               <div className="space-y-2 text-xs font-semibold">
                 <div className="flex justify-between items-center py-2 border-b border-stone-200 dark:border-zinc-800">
                   <span>Create/Modify Designs</span>
-                  <span>{['super_admin', 'client'].includes(user.role) ? <Badge variant="success">Allowed</Badge> : <Badge variant="error">Restricted</Badge>}</span>
+                  <span>{['super_admin', 'client'].includes(roleName) ? <Badge variant="success">Allowed</Badge> : <Badge variant="error">Restricted</Badge>}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-stone-200 dark:border-zinc-800">
                   <span>Audit Database Entries</span>
-                  <span>{['super_admin', 'operator'].includes(user.role) ? <Badge variant="success">Allowed</Badge> : <Badge variant="error">Restricted</Badge>}</span>
+                  <span>{['super_admin', 'operator'].includes(roleName) ? <Badge variant="success">Allowed</Badge> : <Badge variant="error">Restricted</Badge>}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-stone-200 dark:border-zinc-800">
                   <span>Full Security Configurations</span>
-                  <span>{user.role === 'super_admin' ? <Badge variant="gold">Admin Only</Badge> : <Badge variant="error">Restricted</Badge>}</span>
+                  <span>{roleName === 'super_admin' ? <Badge variant="gold">Admin Only</Badge> : <Badge variant="error">Restricted</Badge>}</span>
                 </div>
               </div>
 
               <div className="pt-2">
-                <GoldButton variant="glass" className="w-full text-xs" onClick={() => addToast(`Role verification check complete: ${user.role} is valid.`, 'info')}>
+                <GoldButton variant="glass" className="w-full text-xs" onClick={() => addToast(`Role verification check complete: ${roleName} is valid.`, 'info')}>
                   Verify Credentials
                 </GoldButton>
               </div>

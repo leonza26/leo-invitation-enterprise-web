@@ -24,7 +24,7 @@ export default function Profile() {
                         <div>
                             <span className="text-gray-500 text-sm block">Role</span>
                             <span className="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 mt-1 capitalize">
-                                {user?.roles?.[0]?.name || 'Client'}
+                                {user?.role?.name || 'Client'}
                             </span>
                         </div>
                     </div>

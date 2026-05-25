@@ -10,8 +10,14 @@ import Login from '../pages/auth/Login'
 import Register from '../pages/auth/Register'
 import ForgotPassword from '../pages/auth/ForgotPassword'
 import Profile from '../pages/profile/Profile'
+import { GuestList } from '../components/pages/GuestList'
+import { InvitationView } from '../components/pages/InvitationView'
 
 export const router = createBrowserRouter([
+  {
+    path: '/v/:slug/guest/:qrCode',
+    element: <InvitationView />
+  },
   {
     path: '/login',
     element: <Login />
@@ -39,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: 'invitations',
         element: <InvitationsPage />
+      },
+      {
+        path: 'events/:eventId/guests',
+        element: <GuestList />
       },
       {
         path: 'profile',

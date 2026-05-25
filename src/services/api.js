@@ -63,6 +63,22 @@ export const apiClient = {
 
   dashboard: {
     get: () => apiClient.request('dashboard')
+  },
+
+  guests: {
+    list: (eventId, params = '') => apiClient.request(`events/${eventId}/guests${params ? '?'+params : ''}`),
+    create: (eventId, data) => apiClient.request(`events/${eventId}/guests`, { method: 'POST', body: JSON.stringify(data) }),
+    update: (eventId, id, data) => apiClient.request(`events/${eventId}/guests/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+    delete: (eventId, id) => apiClient.request(`events/${eventId}/guests/${id}`, { method: 'DELETE' }),
+    import: (eventId, data) => apiClient.request(`events/${eventId}/guests/import`, { method: 'POST', body: JSON.stringify(data) }),
+    getWhatsappLink: (eventId, id) => apiClient.request(`events/${eventId}/guests/${id}/whatsapp`),
+  },
+
+  public: {
+    getGuest: (slug, qrCode) => apiClient.request(`public/v/${slug}/guest/${qrCode}`),
+    updateRsvp: (slug, qrCode, status) => apiClient.request(`public/v/${slug}/guest/${qrCode}/rsvp`, { method: 'POST', body: JSON.stringify({ attendance_status: status }) }),
+    getGuestbook: (slug) => apiClient.request(`public/v/${slug}/guestbook`),
+    submitGuestbook: (slug, data) => apiClient.request(`public/v/${slug}/guestbook`, { method: 'POST', body: JSON.stringify(data) })
   }
 }
 export default apiClient

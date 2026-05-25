@@ -7,7 +7,8 @@ import { GsapReveal, GsapStagger } from '../../animations/GsapReveal'
 import { GlassCard } from '../elements/GlassCard'
 import { GoldButton } from '../elements/GoldButton'
 import { Badge } from '../elements/Badge'
-import { Calendar, MapPin, Sparkles, Send, Trash2, Eye, Copy, CheckCircle, Archive } from 'lucide-react'
+import { Calendar, MapPin, Sparkles, Send, Trash2, Eye, Copy, CheckCircle, Archive, Users } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export const InvitationsPage = () => {
   const { user } = useAuthStore()
@@ -61,7 +62,7 @@ export const InvitationsPage = () => {
     addToast('Invitation URL copied to clipboard!', 'success')
   }
 
-  const roleName = user?.roles?.[0]?.name || 'guest'
+  const roleName = user?.role?.name || 'guest'
 
   return (
     <div className="space-y-8 text-left">
@@ -130,6 +131,13 @@ export const InvitationsPage = () => {
                   >
                     <Send className="w-4 h-4" />
                   </button>
+                  <Link 
+                    to={`/events/${inv.id}/guests`}
+                    title="Manage Guests"
+                    className="p-2 border border-stone-200 dark:border-zinc-800 hover:border-gold-500/40 rounded text-stone-600 dark:text-zinc-400 hover:text-gold-500 transition-all cursor-pointer inline-flex items-center justify-center"
+                  >
+                    <Users className="w-4 h-4" />
+                  </Link>
                   <button 
                     onClick={() => handleDuplicate(inv.id, inv.event_name)}
                     title="Duplicate Event"

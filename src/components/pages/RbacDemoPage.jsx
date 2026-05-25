@@ -23,11 +23,12 @@ export const RbacDemoPage = () => {
   ]
 
   const handleTestPermission = (actionName, requiredRoles) => {
-    const isAllowed = requiredRoles.includes(user.role)
+    const currentRole = user?.role?.name || user?.role || 'guest'
+    const isAllowed = requiredRoles.includes(currentRole)
     if (isAllowed) {
-      addToast(`Access Granted: "${user.role}" is authorized to perform "${actionName}".`, 'success')
+      addToast(`Access Granted: "${currentRole}" is authorized to perform "${actionName}".`, 'success')
     } else {
-      addToast(`Access Denied: "${user.role}" is NOT authorized to perform "${actionName}". Requires: ${requiredRoles.join(', ')}`, 'error')
+      addToast(`Access Denied: "${currentRole}" is NOT authorized to perform "${actionName}". Requires: ${requiredRoles.join(', ')}`, 'error')
     }
   }
 
@@ -70,13 +71,13 @@ export const RbacDemoPage = () => {
                     }}
                     className={`
                       w-full px-4 py-2.5 rounded text-left text-xs font-semibold tracking-wider uppercase transition-all duration-300 flex items-center justify-between cursor-pointer
-                      ${user.role === r 
+                      ${(user?.role?.name || user?.role) === r 
                         ? 'gold-gradient-bg text-zinc-950 font-bold shadow-md' 
                         : 'border border-stone-200 dark:border-zinc-800 text-stone-600 dark:text-zinc-400 hover:border-gold-500/30'}
                     `}
                   >
                     <span>{r.replace('_', ' ')}</span>
-                    {user.role === r && <Check className="w-4 h-4 text-zinc-950" />}
+                    {(user?.role?.name || user?.role) === r && <Check className="w-4 h-4 text-zinc-950" />}
                   </button>
                 ))}
               </div>
