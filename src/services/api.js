@@ -43,7 +43,26 @@ export const apiClient = {
 
   auth: {
     login: (credentials) => apiClient.request('auth/login', { method: 'POST', body: JSON.stringify(credentials) }),
-    profile: () => apiClient.request('auth/me')
+    register: (data) => apiClient.request('auth/register', { method: 'POST', body: JSON.stringify(data) }),
+    logout: () => apiClient.request('auth/logout', { method: 'POST' }),
+    profile: () => apiClient.request('auth/profile'),
+    forgotPassword: (email) => apiClient.request('auth/forgot-password', { method: 'POST', body: JSON.stringify({ email }) }),
+    resetPassword: (data) => apiClient.request('auth/reset-password', { method: 'POST', body: JSON.stringify(data) })
+  },
+
+  events: {
+    list: () => apiClient.request('events'),
+    get: (id) => apiClient.request(`events/${id}`),
+    create: (data) => apiClient.request('events', { method: 'POST', body: JSON.stringify(data) }),
+    update: (id, data) => apiClient.request(`events/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+    delete: (id) => apiClient.request(`events/${id}`, { method: 'DELETE' }),
+    duplicate: (id) => apiClient.request(`events/${id}/duplicate`, { method: 'POST' }),
+    publish: (id) => apiClient.request(`events/${id}/publish`, { method: 'POST' }),
+    archive: (id) => apiClient.request(`events/${id}/archive`, { method: 'POST' })
+  },
+
+  dashboard: {
+    get: () => apiClient.request('dashboard')
   }
 }
 export default apiClient
